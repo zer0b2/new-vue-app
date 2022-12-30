@@ -1,5 +1,5 @@
 <template>
-  <div class="main" >
+  <div class="main">
     <ul id="item-list">
       <li
         v-for="(item, index) in items"
@@ -33,7 +33,9 @@ export default {
       this.items[index].isActive = !this.items[index].isActive;
     },
     showData: function () {
-      console.log(jData);
+      console.log(jData.extends);
+      console.log(jData.parserOptions);
+      console.log(jData.rules);
     },
   },
   beforeMount() {
