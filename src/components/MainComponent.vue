@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div class="main" v-on:click="showData">
     <ul id="item-list">
       <li
         v-for="(item, index) in items"
@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import jData from "../../public/doc_2022-12-30_13-32-06.eslintrc";
+
 export default {
   name: "mainComponent",
   data() {
@@ -30,6 +32,12 @@ export default {
       console.log(this.items[index].isActive);
       this.items[index].isActive = !this.items[index].isActive;
     },
+    showData: function () {
+      console.log(jData);
+    },
+  },
+  beforeMount() {
+    this.showData();
   },
 };
 </script>
