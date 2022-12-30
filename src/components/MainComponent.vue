@@ -1,5 +1,5 @@
 <template>
-  <div class="main" v-on:click="showData">
+  <div class="main" >
     <ul id="item-list">
       <li
         v-for="(item, index) in items"
