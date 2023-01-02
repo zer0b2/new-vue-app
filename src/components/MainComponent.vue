@@ -2,8 +2,7 @@
   <div class="main">
     <ul id="item-list">
       <li
-        v-for="
-        (task, index) in tasks"
+        v-for="(task, index) in tasks"
         :key="task.title"
         :index="index"
         v-on:click="change_class(index)"
