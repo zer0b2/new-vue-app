@@ -1,10 +1,13 @@
 <template>
   <div class="main">
-    <ul id="item-list" v-for="task in tasks" :key="task.id">
+    <ul id="item-list">
       <li
-        :index="task.id"
-        :on-click="change_dec(task.id)"
-        :class="['menu-item', [{ crossedout: task.isActive == true }]]"
+        v-for="
+        (task, index) in tasks"
+        :key="task.title"
+        :index="index"
+        v-on:click="change_class(index)"
+        :class="['menu-item', [{ crossedout: task.done == true }]]"
       >
         {{ task.title }}
       </li>
@@ -18,18 +21,16 @@ export default {
   data() {
     return {
       tasks: [],
-      isActive: false,
     };
   },
   methods: {
-    change_dec: function (id) {
-      this.tasks[id].isActive = !this.tasks[id].isActive;
+    change_class: function (index) {
+      this.tasks[index].done = !this.tasks[index].done;
     },
     getTask() {
       fetch("tasks.json")
         .then((response) => response.json())
         .then((data) => (this.tasks = data));
-      console.log(this.tasks);
     },
   },
   mounted() {
