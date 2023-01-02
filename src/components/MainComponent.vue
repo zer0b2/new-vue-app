@@ -1,36 +1,39 @@
 <template>
   <div class="main">
     <ul id="item-list">
-      <li
-        v-for="(task, index) in tasks"
-        :key="task.task"
-        :index="index"
-        v-on:click="change_dec(index)"
-        v-bind:class="[{ crossedout: item.isActive == true }]"
-      >
-        {{ task }}
+      <li v-for="task in tasks" :key="task.index">
+        {{ task.title }}
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+import tasksJSON from "../../public/tasks.json";
+
 export default {
   name: "mainComponent",
   data() {
-    return {};
+    return {
+      tasks: tasksJSON.tasks,
+    };
   },
   methods: {
     change_dec: function (index) {
       console.log(this.items[index].isActive);
       this.items[index].isActive = !this.items[index].isActive;
     },
-    getTasks() {
-      fetch("tasks.json");
+    getTask() {
+      fetch("/tasks.json")
+        .then((response) => response.json)
+        .then((data) => (this.post = data));
     },
   },
   mounted() {
-    this.getTasks();
+    for (let i = 0; i < this.tasks.length; i++) {
+      console.log(this.tasks[i].title);
+    }
+    this.getTask();
   },
 };
 </script>
