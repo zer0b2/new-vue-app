@@ -1,7 +1,11 @@
 <template>
   <div class="main">
-    <ul id="item-list">
-      <li v-for="task in tasks" :key="task.index">
+    <ul id="item-list" v-for="task in tasks" :key="task.id">
+      <li
+        :index="task.id"
+        :on-click="change_dec(task.id)"
+        :class="['menu-item', [{ crossedout: task.isActive == true }]]"
+      >
         {{ task.title }}
       </li>
     </ul>
@@ -9,30 +13,26 @@
 </template>
 
 <script>
-import tasksJSON from "../../public/tasks.json";
-
 export default {
   name: "mainComponent",
   data() {
     return {
-      tasks: tasksJSON.tasks,
+      tasks: [],
+      isActive: false,
     };
   },
   methods: {
-    change_dec: function (index) {
-      console.log(this.items[index].isActive);
-      this.items[index].isActive = !this.items[index].isActive;
+    change_dec: function (id) {
+      this.tasks[id].isActive = !this.tasks[id].isActive;
     },
     getTask() {
-      fetch("/tasks.json")
-        .then((response) => response.json)
-        .then((data) => (this.post = data));
+      fetch("tasks.json")
+        .then((response) => response.json())
+        .then((data) => (this.tasks = data));
+      console.log(this.tasks);
     },
   },
   mounted() {
-    for (let i = 0; i < this.tasks.length; i++) {
-      console.log(this.tasks[i].title);
-    }
     this.getTask();
   },
 };

@@ -1,24 +1,27 @@
-{
-    "tasks": [
+[   
+    {
+        "id": 0,
+        "title": "Помыть посуду",
+        "done": false
+    },
         {
-            "title": "Помыть посуду",
-            "done": false
+        "id": 1,
+        "title": "Погулять с собакой",
+        "done": false
         },
         {
-            "title": "Погулять с собакой",
-            "done": false
+        "id": 2,
+        "title": "Сделать зарядку",
+        "done": false
         },
         {
-            "title": "Сделать зарядку",
-            "done": false
+        "id": 3,
+        "title": "Позавтракать",
+        "done": false
         },
         {
-            "title": "Позавтракать",
-            "done": false
-        },
-        {
-            "title": "Приготовить ужин",
-            "done": false
+        "id": 4,
+        "title": "Приготовить ужин",
+        "done": false
         }
-    ]
-}
+]
