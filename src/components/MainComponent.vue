@@ -10,7 +10,13 @@
         {{ task.title }}
       </li>
     </ul>
-    <button type="button" v-on:click="saveTasks()">Сохранить</button>
+    <button
+      type="button"
+      v-on:click="saveTasks()"
+      :class="[{ success_save: success == true }]"
+    >
+      Сохранить
+    </button>
   </div>
 </template>
 
@@ -20,6 +26,7 @@ export default {
   data() {
     return {
       tasks: [],
+      success: false,
     };
   },
   methods: {
@@ -33,6 +40,9 @@ export default {
     },
     saveTasks() {
       localStorage.setItem("toDoList", JSON.stringify(this.tasks));
+      if (JSON.stringify(this.tasks != null)) {
+        this.success = true;
+      }
     },
   },
   mounted() {
@@ -51,5 +61,8 @@ ul {
 }
 .crossedout {
   text-decoration: line-through;
+}
+.success_save {
+  background-color: green;
 }
 </style>
