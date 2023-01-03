@@ -5,10 +5,17 @@
         v-for="(task, index) in tasks"
         :key="task.title"
         :index="index"
-        v-on:click="change_class(index)"
         :class="['menu-item', [{ crossedout: task.done == true }]]"
+        :for="todo"
       >
         {{ task.title }}
+        <input
+          type="checkbox"
+          name="todo"
+          :id="todo"
+          :value="todo"
+          v-model="tasks[index].done"
+        />
       </li>
     </ul>
   </div>
@@ -20,6 +27,7 @@ export default {
   data() {
     return {
       tasks: [],
+      checked: [],
     };
   },
   methods: {
@@ -34,6 +42,12 @@ export default {
   },
   mounted() {
     this.getTask();
+    this.checked = JSON.parse(localStorage.getItem(this.tasks.done)) || [];
+  },
+  watch: {
+    checked(newValue) {
+      localStorage.setItem("checked", JSON.stringify(newValue));
+    },
   },
 };
 </script>
