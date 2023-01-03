@@ -40,9 +40,6 @@ export default {
     },
     saveTasks() {
       localStorage.setItem("toDoList", JSON.stringify(this.tasks));
-      if (JSON.stringify(this.tasks != null)) {
-        this.success = true;
-      }
     },
   },
   mounted() {
