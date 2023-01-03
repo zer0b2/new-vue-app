@@ -1,16 +1,16 @@
 <template>
   <div class="main">
-    <ul id="item-list">
+    <ul id="item-list" v-for="(task, index) in tasks" :key="task.index">
       <li
-        v-for="(task, index) in tasks"
-        :key="task.title"
         :index="index"
-        v-on:click="change_class(index)"
         :class="['menu-item', [{ crossedout: task.done == true }]]"
+        :key="taskToDo"
+        v-on:click="change_class(index)"
       >
         {{ task.title }}
       </li>
     </ul>
+    <button type="button" v-on:click="saveTasks()">Сохранить</button>
   </div>
 </template>
 
@@ -31,14 +31,24 @@ export default {
         .then((response) => response.json())
         .then((data) => (this.tasks = data));
     },
+    saveTasks() {
+      localStorage.setItem("toDoList", JSON.stringify(this.tasks));
+    },
   },
   mounted() {
-    this.getTask();
+    if (JSON.parse(localStorage.getItem("toDoList")) != null) {
+      this.tasks = JSON.parse(localStorage.getItem("toDoList"));
+    } else {
+      this.getTask();
+    }
   },
 };
 </script>
 
 <style>
+ul {
+  display: flex;
+}
 .crossedout {
   text-decoration: line-through;
 }
