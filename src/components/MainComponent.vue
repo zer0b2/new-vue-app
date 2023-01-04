@@ -17,22 +17,20 @@
     >
       Сохранить
     </button>
-    <calendarComponent></calendarComponent>
+    <v-date-picker v-model="date" />
   </div>
 </template>
 
 <script>
-import CalendarComponent from "./CalendarComponent.vue";
+import "v-calendar/dist/style.css";
 
 export default {
   name: "mainComponent",
-  components: {
-    calendarComponent: CalendarComponent,
-  },
   data() {
     return {
       tasks: [],
       success: [],
+      date: new Date(),
     };
   },
   methods: {
@@ -69,6 +67,6 @@ ul {
   text-decoration: line-through;
 }
 .success_save {
-  background-color: green;
+  background: greenyellow;
 }
 </style>
