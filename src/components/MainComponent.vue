@@ -17,12 +17,18 @@
     >
       Сохранить
     </button>
+    <calendarComponent></calendarComponent>
   </div>
 </template>
 
 <script>
+import CalendarComponent from "./CalendarComponent.vue";
+
 export default {
   name: "mainComponent",
+  components: {
+    calendarComponent: CalendarComponent,
+  },
   data() {
     return {
       tasks: [],
