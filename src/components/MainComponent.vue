@@ -17,12 +17,13 @@
     >
       Сохранить
     </button>
-    <v-date-picker v-model="date" />
   </div>
+  <DatePicker class="datePicker" />
 </template>
 
 <script>
 import "v-calendar/dist/style.css";
+import { DatePicker } from "v-calendar";
 
 export default {
   name: "mainComponent",
@@ -32,6 +33,9 @@ export default {
       success: [],
       date: new Date(),
     };
+  },
+  components: {
+    DatePicker,
   },
   methods: {
     change_class: function (index) {
@@ -60,6 +64,9 @@ export default {
 </script>
 
 <style>
+.datePicker {
+  display: flex;
+}
 ul {
   display: flex;
 }
