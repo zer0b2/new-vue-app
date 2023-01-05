@@ -18,12 +18,12 @@
       Сохранить
     </button>
   </div>
-  <DatePicker class="datePicker" v-model="date" />
+  <DatePicker class="datePicker" />
 </template>
 
 <script>
-import "v-calendar/dist/style.css";
 import { DatePicker } from "v-calendar";
+import "v-calendar/dist/style.css";
 
 export default {
   name: "mainComponent",
@@ -66,6 +66,7 @@ export default {
 <style>
 .datePicker {
   display: flex;
+  margin-top: 25px;
 }
 ul {
   display: flex;
@@ -75,5 +76,9 @@ ul {
 }
 .success_save {
   background: greenyellow;
+}
+.weekday-position-6,
+.weekday-position-7 {
+  color: red;
 }
 </style>
