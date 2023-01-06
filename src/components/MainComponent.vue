@@ -1,27 +1,29 @@
 <template>
   <div class="main">
-    <ul id="item-list" v-for="(task, index) in tasks" :key="task.index">
-      <li
-        class="menu-list-item"
-        :index="index"
-        :class="['menu-item', [{ crossedout: task.done == true }]]"
-        :key="taskToDo"
-        v-on:click="change_class(index)"
+    <div>
+      <ul id="item-list" v-for="(task, index) in tasks" :key="task.index">
+        <li
+          class="menu-list-item"
+          :index="index"
+          :class="['menu-item', [{ crossedout: task.done == true }]]"
+          :key="taskToDo"
+          v-on:click="change_class(index)"
+        >
+          {{ task.title }}
+        </li>
+        <label>Deadline: {{ getDl() }}</label>
+      </ul>
+      <button
+        class="btn"
+        type="button"
+        v-on:click="saveTasks()"
+        :class="[{ success_save: success == true }]"
       >
-        {{ task.title }}
-      </li>
-      <label>Deadline: {{ getDl() }}</label>
-    </ul>
-    <button
-      class="btn"
-      type="button"
-      v-on:click="saveTasks()"
-      :class="[{ success_save: success == true }]"
-    >
-      Сохранить
-    </button>
+        Сохранить
+      </button>
+    </div>
+    <DatePicker class="datePicker" v-model="date" />
   </div>
-  <DatePicker class="datePicker" v-model="date" />
 </template>
 
 <script>
@@ -63,18 +65,10 @@ export default {
         (new Date("2023-01-13T19:00:43.511") - this.date) / 1000 / 60 / 60 -
           curDays * 24
       );
-      console.log(
-        Math.floor(
-          (new Date("2023-01-13T19:00:43.511") - this.date) / 1000 / 60 / 60 -
-            curDays * 24
-        )
-      );
-      console.log(curDays * 24 * 60);
       let curMin = Math.floor(
         (new Date("2023-01-13T19:00:43.511") - this.date) / 1000 / 60 -
           (curHr * 60 + curDays * 24 * 60)
       );
-      console.log(curHr * 60);
       return `${curDays} дней ${curHr} часов ${curMin} минут`;
     },
   },
@@ -90,14 +84,13 @@ export default {
 
 <style>
 .datePicker {
-  display: flex;
-  margin-top: 25px;
+  margin-left: 50px;
 }
 .main {
-  display: flexbox;
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: 300px;
+  width: 600px;
 }
 .menu-list-item {
   margin: 10px;
