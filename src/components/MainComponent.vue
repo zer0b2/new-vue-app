@@ -97,6 +97,11 @@ export default {
   display: flex;
   flex-flow: column;
   align-items: flex-start;
+  width: 300px;
+}
+.menu-list-item {
+  margin-bottom: 5px;
+  border-bottom: 1px solid grey;
 }
 .btn {
   margin-left: 3%;
