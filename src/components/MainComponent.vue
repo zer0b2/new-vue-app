@@ -21,6 +21,7 @@
       >
         Сохранить
       </button>
+      <button v-on:click="refreshTasks()">Сбросить</button>
     </div>
     <DatePicker class="datePicker" v-model="date" />
   </div>
@@ -56,6 +57,10 @@ export default {
       if (JSON.stringify(this.tasks != null)) {
         this.success = true;
       }
+    },
+    refreshTasks() {
+      localStorage.clear();
+      this.getTask();
     },
     getDl() {
       let curDays = Math.floor(
