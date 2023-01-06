@@ -94,13 +94,13 @@ export default {
   margin-top: 25px;
 }
 .main {
-  display: flex;
-  flex-flow: column;
-  align-items: flex-start;
+  display: flexbox;
+  align-items: center;
+  justify-content: center;
   width: 300px;
 }
 .menu-list-item {
-  margin-bottom: 5px;
+  margin: 10px;
   border-bottom: 1px solid grey;
 }
 .btn {
