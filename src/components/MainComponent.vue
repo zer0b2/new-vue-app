@@ -18,7 +18,7 @@
       Сохранить
     </button>
   </div>
-  <DatePicker class="datePicker" />
+  <DatePicker class="datePicker" v-model="date" />
 </template>
 
 <script>
