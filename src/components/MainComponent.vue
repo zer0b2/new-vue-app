@@ -1,27 +1,30 @@
 <template>
   <div class="main">
     <div>
-      <ul id="item-list" v-for="(task, index) in tasks" :key="task.index">
+      <ul
+        id="item-list"
+        v-for="(task, index) in tasks"
+        :key="task.index"
+        :index="index"
+      >
         <li
           class="menu-list-item"
-          :index="index"
           :class="['menu-item', [{ crossedout: task.done == true }]]"
-          :key="taskToDo"
           v-on:click="change_class(index)"
         >
           {{ task.title }}
         </li>
-        <label>Deadline: {{ getDl() }}</label>
+        <label>Deadline: {{ getDl(index) }}</label>
       </ul>
       <button
-        class="btn"
+        class="save_btn"
         type="button"
         v-on:click="saveTasks()"
         :class="[{ success_save: success == true }]"
       >
         Сохранить
       </button>
-      <button v-on:click="refreshTasks()">Сбросить</button>
+      <button v-on:click="refreshTasks()" class="refresh_btn">Сбросить</button>
     </div>
     <DatePicker class="datePicker" v-model="date" />
   </div>
@@ -62,16 +65,16 @@ export default {
       localStorage.clear();
       this.getTask();
     },
-    getDl() {
+    getDl(index) {
       let curDays = Math.floor(
-        (new Date("2023-01-13T19:00:43.511") - this.date) / 1000 / 60 / 60 / 24
+        (new Date(this.tasks[index].date) - this.date) / 1000 / 60 / 60 / 24
       );
       let curHr = Math.floor(
-        (new Date("2023-01-13T19:00:43.511") - this.date) / 1000 / 60 / 60 -
+        (new Date(this.tasks[index].date) - this.date) / 1000 / 60 / 60 -
           curDays * 24
       );
       let curMin = Math.floor(
-        (new Date("2023-01-13T19:00:43.511") - this.date) / 1000 / 60 -
+        (new Date(this.tasks[index].date) - this.date) / 1000 / 60 -
           (curHr * 60 + curDays * 24 * 60)
       );
       return `${curDays} дней ${curHr} часов ${curMin} минут`;
@@ -89,15 +92,19 @@ export default {
 
 <style>
 .datePicker {
+  display: flex;
   margin-left: 50px;
+  margin-top: 25px;
 }
 .main {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 600px;
+  width: auto;
 }
 .menu-list-item {
+  list-style-type: none;
   margin: 10px;
   border-bottom: 1px solid grey;
 }
