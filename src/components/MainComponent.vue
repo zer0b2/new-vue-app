@@ -2,25 +2,27 @@
   <div class="main">
     <div>
       <ul
-        id="item-list"
         v-for="(task, index) in tasks"
         :key="task.index"
         :index="index"
+        comment="Вначале идут арибуты с динамическими свойствами в конце снеизменяемыми(статическими)"
+        id="item-list"
+        class="listTask"
       >
         <li
           class="menu-list-item"
-          :class="['menu-item', [{ crossedout: task.done == true }]]"
+          :class="['menu-item', [{ doneStatus: task.done == true }]]"
           v-on:click="change_class(index)"
         >
           {{ task.title }}
         </li>
-        <label>Deadline: {{ getDl(index) }}</label>
+        <label v-if="getDateRange(index) > 0">{{ getDl(index) }}</label>
       </ul>
       <button
-        class="save_btn"
-        type="button"
         v-on:click="saveTasks()"
         :class="[{ success_save: success == true }]"
+        class="save_btn"
+        type="button"
       >
         Сохранить
       </button>
@@ -31,6 +33,7 @@
 </template>
 
 <script>
+import "@fontsource/roboto";
 import { DatePicker } from "v-calendar";
 import "v-calendar/dist/style.css";
 
@@ -65,17 +68,16 @@ export default {
       localStorage.clear();
       this.getTask();
     },
+    getDateRange(index) {
+      return new Date(this.tasks[index].date) - this.date;
+    },
     getDl(index) {
-      let curDays = Math.floor(
-        (new Date(this.tasks[index].date) - this.date) / 1000 / 60 / 60 / 24
-      );
+      let curDays = Math.floor(this.getDateRange(index) / 1000 / 60 / 60 / 24);
       let curHr = Math.floor(
-        (new Date(this.tasks[index].date) - this.date) / 1000 / 60 / 60 -
-          curDays * 24
+        this.getDateRange(index) / 1000 / 60 / 60 - curDays * 24
       );
       let curMin = Math.floor(
-        (new Date(this.tasks[index].date) - this.date) / 1000 / 60 -
-          (curHr * 60 + curDays * 24 * 60)
+        this.getDateRange(index) / 1000 / 60 - (curHr * 60 + curDays * 24 * 60)
       );
       return `${curDays} дней ${curHr} часов ${curMin} минут`;
     },
@@ -91,6 +93,14 @@ export default {
 </script>
 
 <style>
+.listTask {
+  font-family: "Roboto";
+  border-style: solid;
+  border-width: 1px;
+  border-color: #e3e3e3;
+  margin: 1%;
+  box-shadow: 2px 2px 4px #dfdfdf;
+}
 .datePicker {
   display: flex;
   margin-top: 25px;
@@ -110,8 +120,9 @@ export default {
 .btn {
   margin-left: 3%;
 }
-.crossedout {
+.doneStatus {
   text-decoration: line-through;
+  opacity: 0.3;
 }
 .success_save {
   background: greenyellow;
