@@ -93,13 +93,12 @@ export default {
 <style>
 .datePicker {
   display: flex;
-  margin-left: 50px;
   margin-top: 25px;
 }
 .main {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   width: auto;
 }
