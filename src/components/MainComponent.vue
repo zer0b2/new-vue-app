@@ -36,13 +36,12 @@
       </button>
       <button v-on:click="refreshTasks()" class="refresh_btn">Сбросить</button>
     </div>
-    <DatePicker class="datePicker" v-model="curDate" />
+    <v-calendar class="calendar" :attributes="attributes" />
   </div>
 </template>
 
 <script>
 import "@fontsource/roboto";
-import { DatePicker } from "v-calendar";
 import "v-calendar/dist/style.css";
 
 export default {
@@ -52,11 +51,12 @@ export default {
       tasks: [],
       success: [],
       date: new Date(),
-      curDate: new Date(),
+      attrs: [
+        {
+          dates: new Date(),
+        },
+      ],
     };
-  },
-  components: {
-    DatePicker,
   },
   methods: {
     getTask() {
@@ -95,6 +95,16 @@ export default {
       this.getTask();
     }
   },
+  computed: {
+    attributes() {
+      return this.tasks.map((t) => ({
+        key: `task.${t.id}`,
+        dot: true,
+        dates: t.date,
+        customData: t,
+      }));
+    },
+  },
 };
 </script>
 
@@ -107,7 +117,7 @@ export default {
   margin: 1%;
   box-shadow: 2px 2px 4px #dfdfdf;
 }
-.datePicker {
+.calendar {
   display: flex;
   margin-top: 25px;
 }
