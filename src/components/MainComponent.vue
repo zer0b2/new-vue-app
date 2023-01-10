@@ -36,7 +36,7 @@
       </button>
       <button v-on:click="refreshTasks()" class="refresh_btn">Сбросить</button>
     </div>
-    <DatePicker class="datePicker" v-model="date" />
+    <DatePicker class="datePicker" v-model="curDate" />
   </div>
 </template>
 
@@ -52,15 +52,13 @@ export default {
       tasks: [],
       success: [],
       date: new Date(),
+      curDate: new Date(),
     };
   },
   components: {
     DatePicker,
   },
   methods: {
-    change_class: function (index) {
-      this.tasks[index].done = !this.tasks[index].done;
-    },
     getTask() {
       fetch("tasks.json")
         .then((response) => response.json())
