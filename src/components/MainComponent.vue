@@ -51,11 +51,6 @@ export default {
       tasks: [],
       success: [],
       date: new Date(),
-      attrs: [
-        {
-          dates: new Date(),
-        },
-      ],
     };
   },
   methods: {
@@ -99,7 +94,7 @@ export default {
     attributes() {
       return this.tasks.map((t) => ({
         key: `task.${t.id}`,
-        dot: true,
+        dot: t.color,
         dates: t.date,
         customData: t,
       }));
