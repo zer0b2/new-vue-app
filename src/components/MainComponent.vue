@@ -11,12 +11,20 @@
       >
         <li
           class="menu-list-item"
+          id="list-item"
           :class="['menu-item', [{ doneStatus: task.done == true }]]"
-          v-on:click="change_class(index)"
         >
           {{ task.title }}
         </li>
         <label v-if="getDateRange(index) > 0">{{ getDl(index) }}</label>
+        <div class="test">
+          <label>Выполнено</label>
+          <input
+            type="checkbox"
+            for="list-item"
+            v-model="this.tasks[index].done"
+          />
+        </div>
       </ul>
       <button
         v-on:click="saveTasks()"
@@ -130,5 +138,12 @@ export default {
 .weekday-position-6,
 .weekday-position-7 {
   color: red;
+}
+
+.test {
+  display: inline-flex;
+  border-left: 1px solid black;
+  margin-left: 5px;
+  padding-left: 5px;
 }
 </style>
