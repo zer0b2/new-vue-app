@@ -9,13 +9,21 @@
         id="item-list"
         class="listTask"
       >
-        <li
-          class="menu-list-item"
-          id="list-item"
-          :class="['menu-item', [{ doneStatus: task.done == true }]]"
-        >
-          {{ task.title }}
-        </li>
+        <div class="list-wrapper">
+          <span
+            class="task-color"
+            :style="{
+              background: this.tasks[index].color,
+            }"
+          ></span>
+          <li
+            class="menu-list-item"
+            id="list-item"
+            :class="['menu-item', [{ doneStatus: task.done == true }]]"
+          >
+            {{ task.title }}
+          </li>
+        </div>
         <label v-if="getDateRange(index) > 0">{{ getDl(index) }}</label>
         <div class="test">
           <label>Выполнено</label>
@@ -51,6 +59,7 @@ export default {
       tasks: [],
       success: [],
       date: new Date(),
+      colors: [],
     };
   },
   methods: {
@@ -104,6 +113,9 @@ export default {
 </script>
 
 <style>
+.list-wrapper {
+  display: flex;
+}
 .listTask {
   font-family: "Roboto";
   border-style: solid;
@@ -116,6 +128,14 @@ export default {
   display: flex;
   margin-top: 25px;
 }
+.task-color {
+  position: relative;
+  top: 15px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: red;
+}
 .main {
   display: flex;
   flex-direction: column;
@@ -124,6 +144,7 @@ export default {
   width: auto;
 }
 .menu-list-item {
+  width: 90%;
   list-style-type: none;
   margin: 10px;
   border-bottom: 1px solid grey;
